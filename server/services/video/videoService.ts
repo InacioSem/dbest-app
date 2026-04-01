@@ -1,14 +1,24 @@
 // server/services/video/videoService.ts
 // Pipeline Step 4: Asset Generation
-// Orchestrates video clip generation across multiple providers
-// Currently in demo/placeholder mode — swap in real API calls when keys are ready
+//
+// Performance shots (lip-sync): fal-ai/bytedance/omnihuman/v1.5
+//   - Takes artist photo + trimmed audio segment → video with lip-sync
+//
+// B-roll / environment shots: fal-ai/kling-video/v3/pro/image-to-video
+//   - Takes artist photo + generation prompt → cinematic video clip
 
-import { logger } from '../../middleware/logger.js';
+import { fal } from '@fal-ai/client';
+import fs from 'fs';
+import path from 'path';
+import { logger } from '../../middleware/logger';
 import type {
   StoryboardShot,
   GeneratedClip,
   ArtistProfile,
-} from '../../../shared/types/index.js';
+} from '../../../shared/types/index';
+
+// Configure FAL client
+fal.config({ credentials: process.env.FAL_API_KEY });
 
 const isDemoMode = () => process.env.USE_DEMO_MODE === 'true';
 
@@ -20,7 +30,8 @@ export async function generateClips(
   projectId: string,
   shots: StoryboardShot[],
   artistProfile: ArtistProfile,
-  songUrl: string
+  songUrl: string,
+  audioSegmentsDir?: string,
 ): Promise<GeneratedClip[]> {
   logger.info(`Generating ${shots.length} clips for project ${projectId}`);
 
@@ -28,11 +39,13 @@ export async function generateClips(
 
   for (const shot of shots) {
     try {
-      const clip = await generateSingleClip(projectId, shot, artistProfile, songUrl);
+      const clip = await generateSingleClip(
+        projectId, shot, artistProfile, songUrl, audioSegmentsDir,
+      );
       clips.push(clip);
-      logger.info(`  Shot ${shot.index}: ${clip.status} (${clip.platform})`);
+      logger.info(`  Shot ${shot.index + 1}: ${clip.status} (${clip.platform})`);
     } catch (err) {
-      logger.error(`  Shot ${shot.index} FAILED: ${(err as Error).message}`);
+      logger.error(`  Shot ${shot.index + 1} FAILED: ${(err as Error).message}`);
       clips.push({
         id: `clip_${projectId}_${shot.index}`,
         projectId,
@@ -54,131 +67,218 @@ export async function generateClips(
 }
 
 // ============================================================
-// Generate a single clip (routes to correct provider)
+// Route to correct provider based on shot type
 // ============================================================
 
 async function generateSingleClip(
   projectId: string,
   shot: StoryboardShot,
   artistProfile: ArtistProfile,
-  songUrl: string
+  songUrl: string,
+  audioSegmentsDir?: string,
 ): Promise<GeneratedClip> {
   if (isDemoMode()) {
-    // Simulate generation delay
     await new Promise(resolve => setTimeout(resolve, 500));
-
     return {
       id: `clip_${projectId}_${shot.index}`,
       projectId,
       shotIndex: shot.index,
       clipUrl: `https://demo.dbest.app/clips/demo_shot_${shot.index}.mp4`,
-      platform: shot.requiresLipSync ? 'omnihuman_demo' : 'seedance_demo',
-      generationModel: shot.requiresLipSync ? 'omnihuman-v1.5' : 'seedance-2-0',
-      generationCost: shot.requiresLipSync ? 0.16 * 5 : 0.10 * 5, // ~5 sec clips
+      platform: shot.requiresLipSync ? 'omnihuman_demo' : 'kling_demo',
+      generationModel: shot.requiresLipSync ? 'omnihuman-v1.5' : 'kling-v3-pro',
+      generationCost: shot.requiresLipSync ? 0.80 : 0.50,
       status: 'succeeded',
       createdAt: new Date(),
     };
   }
 
-  // === REAL API CALLS (uncomment when keys are ready) ===
-
   if (shot.requiresLipSync) {
-    return generateLipSyncClip(projectId, shot, artistProfile, songUrl);
+    return generateLipSyncClip(projectId, shot, artistProfile, songUrl, audioSegmentsDir);
   } else {
     return generateVideoClip(projectId, shot, artistProfile);
   }
 }
 
 // ============================================================
-// Seedance / Kling video generation (via EvoLink)
-// ============================================================
-
-async function generateVideoClip(
-  projectId: string,
-  shot: StoryboardShot,
-  artistProfile: ArtistProfile
-): Promise<GeneratedClip> {
-  // TODO: Replace with real EvoLink API call when Seedance 2.0 schema is published
-  //
-  // const response = await fetch(`${process.env.EVOLINK_BASE_URL}/videos/generations`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Authorization': `Bearer ${process.env.EVOLINK_API_KEY}`,
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     model: process.env.SEEDANCE_MODEL || 'seedance-2-0',
-  //     prompt: shot.generationPrompt,
-  //     image_urls: artistProfile.photoUrls.slice(0, 9), // Max 9 for @image1-@image9
-  //     duration: Math.round(shot.timestampEnd - shot.timestampStart),
-  //     audio: false,
-  //   }),
-  // });
-  //
-  // const job = await response.json();
-  // const result = await pollForResult(job.id);
-  // return { ... };
-
-  throw new Error('Video generation not yet implemented — enable DEMO MODE or add EvoLink API key');
-}
-
-// ============================================================
-// OmniHuman / Aurora lip-sync generation (via FAL.AI)
+// OmniHuman v1.5 — Lip-sync performance shots (via FAL.AI)
+//
+// Model: fal-ai/bytedance/omnihuman/v1.5
+// Input: reference image + audio segment
+// Output: video with character-consistent lip-sync
 // ============================================================
 
 async function generateLipSyncClip(
   projectId: string,
   shot: StoryboardShot,
   artistProfile: ArtistProfile,
-  songUrl: string
+  songUrl: string,
+  audioSegmentsDir?: string,
 ): Promise<GeneratedClip> {
-  // TODO: Replace with real FAL.AI API call for OmniHuman/Aurora
-  //
-  // const response = await fetch('https://fal.run/fal-ai/omnihuman-v1.5', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Authorization': `Key ${process.env.FAL_API_KEY}`,
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     image_url: artistProfile.photoUrls[0], // Primary reference photo
-  //     audio_url: songUrl, // Isolated vocal track for this segment
-  //     duration: Math.round(shot.timestampEnd - shot.timestampStart),
-  //   }),
-  // });
+  const imageUrl = artistProfile.photoUrls[0];
+  if (!imageUrl) {
+    throw new Error('No artist photo available for lip-sync generation');
+  }
 
-  throw new Error('Lip-sync generation not yet implemented — enable DEMO MODE or add FAL API key');
+  // Resolve the audio source: use pre-trimmed segment if available,
+  // otherwise pass the full song URL (less ideal).
+  let audioSource: string = songUrl;
+
+  if (audioSegmentsDir) {
+    const shotNum = String(shot.index + 1).padStart(2, '0');
+    const segmentFiles = fs.existsSync(audioSegmentsDir)
+      ? fs.readdirSync(audioSegmentsDir).filter(f => f.startsWith(`shot${shotNum}_`))
+      : [];
+
+    if (segmentFiles.length > 0) {
+      const segmentPath = path.join(audioSegmentsDir, segmentFiles[0]);
+      // Upload local file to FAL storage
+      audioSource = await uploadToFal(segmentPath);
+      logger.info(`  Using trimmed audio segment: ${segmentFiles[0]}`);
+    }
+  }
+
+  // Upload image if it's a local file path
+  const resolvedImage = await resolveFileUrl(imageUrl);
+
+  const duration = Math.round(shot.timestampEnd - shot.timestampStart);
+
+  logger.info(`  OmniHuman v1.5: image=${path.basename(imageUrl)}, duration=${duration}s`);
+
+  const result = await fal.subscribe('fal-ai/bytedance/omnihuman/v1.5', {
+    input: {
+      image_url: resolvedImage,
+      audio_url: audioSource,
+      num_inference_steps: 20,
+      fps: 24,
+      resolution: 768,
+      seed: shot.index, // Consistent seed per shot for reproducibility
+    },
+    logs: true,
+    onQueueUpdate: (update) => {
+      if (update.status === 'IN_PROGRESS' && update.logs) {
+        for (const log of update.logs) {
+          logger.debug(`  OmniHuman [shot ${shot.index + 1}]: ${log.message}`);
+        }
+      }
+    },
+  });
+
+  const videoUrl = (result.data as any)?.video?.url;
+  if (!videoUrl) {
+    throw new Error(`OmniHuman returned no video URL: ${JSON.stringify(result.data)}`);
+  }
+
+  return {
+    id: `clip_${projectId}_${shot.index}`,
+    projectId,
+    shotIndex: shot.index,
+    clipUrl: videoUrl,
+    platform: 'fal-omnihuman',
+    generationModel: 'omnihuman-v1.5',
+    generationCost: 0.80, // Approximate per-clip cost
+    status: 'succeeded',
+    createdAt: new Date(),
+  };
 }
 
 // ============================================================
-// Async polling helper (for all video APIs)
+// KLING v3 Pro — B-roll / environment / transition shots (via FAL.AI)
+//
+// Model: fal-ai/kling-video/v3/pro/image-to-video
+// Input: reference image + text prompt from storyboard
+// Output: cinematic video clip matching the scene description
 // ============================================================
 
-export async function pollForResult(
-  taskId: string,
-  baseUrl: string = process.env.EVOLINK_BASE_URL || '',
-  apiKey: string = process.env.EVOLINK_API_KEY || '',
-  maxAttempts: number = 60,
-  intervalMs: number = 15000
-): Promise<{ status: string; videoUrl: string }> {
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const response = await fetch(`${baseUrl}/tasks/${taskId}`, {
-      headers: { 'Authorization': `Bearer ${apiKey}` },
-    });
+async function generateVideoClip(
+  projectId: string,
+  shot: StoryboardShot,
+  artistProfile: ArtistProfile,
+): Promise<GeneratedClip> {
+  // Use artist photo as reference for shots that include the artist,
+  // skip reference for pure environment/object shots
+  const includesArtist = shot.shotType !== 'transition' &&
+    !shot.sceneDescription.toLowerCase().includes('rain drops hitting') &&
+    !shot.sceneDescription.toLowerCase().includes('close-up of locked') &&
+    !shot.sceneDescription.toLowerCase().includes('close-up details of locked');
 
-    const data = await response.json() as any;
+  const imageUrl = includesArtist ? artistProfile.photoUrls[0] : undefined;
+  const resolvedImage = imageUrl ? await resolveFileUrl(imageUrl) : undefined;
 
-    if (data.status === 'succeeded') {
-      return { status: 'succeeded', videoUrl: data.results?.[0] || data.video_url };
-    }
+  const duration = Math.min(Math.round(shot.timestampEnd - shot.timestampStart), 10);
+  const durationOption = duration <= 5 ? '5' : '10';
 
-    if (data.status === 'failed') {
-      throw new Error(`Generation failed: ${data.error || 'Unknown error'}`);
-    }
+  logger.info(`  KLING v3 Pro: prompt="${shot.generationPrompt.substring(0, 60)}...", duration=${durationOption}s`);
 
-    logger.debug(`  Polling ${taskId}: ${data.status} (attempt ${attempt + 1}/${maxAttempts})`);
-    await new Promise(resolve => setTimeout(resolve, intervalMs));
+  const input: Record<string, unknown> = {
+    prompt: shot.generationPrompt,
+    duration: durationOption,
+    aspect_ratio: '16:9',
+  };
+
+  if (resolvedImage) {
+    input.image_url = resolvedImage;
   }
 
-  throw new Error(`Generation timed out after ${maxAttempts} attempts`);
+  const result = await fal.subscribe('fal-ai/kling-video/v3/pro/image-to-video', {
+    input,
+    logs: true,
+    onQueueUpdate: (update) => {
+      if (update.status === 'IN_PROGRESS' && update.logs) {
+        for (const log of update.logs) {
+          logger.debug(`  KLING [shot ${shot.index + 1}]: ${log.message}`);
+        }
+      }
+    },
+  });
+
+  const videoUrl = (result.data as any)?.video?.url;
+  if (!videoUrl) {
+    throw new Error(`KLING returned no video URL: ${JSON.stringify(result.data)}`);
+  }
+
+  return {
+    id: `clip_${projectId}_${shot.index}`,
+    projectId,
+    shotIndex: shot.index,
+    clipUrl: videoUrl,
+    platform: 'fal-kling',
+    generationModel: 'kling-v3-pro',
+    generationCost: 0.50, // Approximate per-clip cost
+    status: 'succeeded',
+    createdAt: new Date(),
+  };
+}
+
+// ============================================================
+// File handling helpers
+// ============================================================
+
+async function uploadToFal(localPath: string): Promise<string> {
+  const fileBuffer = fs.readFileSync(localPath);
+  const fileName = path.basename(localPath);
+  const file = new File([fileBuffer], fileName, {
+    type: fileName.endsWith('.wav') ? 'audio/wav' : 'audio/mpeg',
+  });
+
+  const url = await fal.storage.upload(file);
+  logger.info(`  Uploaded to FAL storage: ${fileName}`);
+  return url;
+}
+
+async function resolveFileUrl(filePathOrUrl: string): Promise<string> {
+  // If it's already a URL, return as-is
+  if (filePathOrUrl.startsWith('http://') || filePathOrUrl.startsWith('https://')) {
+    return filePathOrUrl;
+  }
+
+  // If it's a local file, upload to FAL storage
+  const absolutePath = path.isAbsolute(filePathOrUrl)
+    ? filePathOrUrl
+    : path.resolve(filePathOrUrl);
+
+  if (!fs.existsSync(absolutePath)) {
+    throw new Error(`File not found: ${absolutePath}`);
+  }
+
+  return uploadToFal(absolutePath);
 }
