@@ -1,0 +1,346 @@
+{
+  "nav": {
+    "home": "Akèy",
+    "processing": "Tretman",
+    "storyboard": "Storyboard",
+    "gallery": "Galri",
+    "language": "Lang",
+    "createVideo": "Kreye Videyo",
+    "signIn": "Konekte",
+    "signOut": "Dekonekte"
+  },
+  "hero": {
+    "title": "Jeneratè Videyo Mizik IA",
+    "subtitle": "Transfòme chante ou yo nan bèl videyo mizik ak pouvwa entèlijans atifisyèl",
+    "cta": "Kreye Videyo Ou",
+    "tagline": "Soti nan son rive sou ekran nan kèk minit"
+  },
+  "upload": {
+    "title": "Telechaje Pwojè Ou",
+    "subtitle": "Mete chante ou ak foto atis ou pou kòmanse",
+    "dragDrop": "Trennen epi lage fichye yo isit la",
+    "selectFiles": "Chwazi Fichye",
+    "songLabel": "Fichye Chante",
+    "songHelp": "Telechaje fichye odyo ou (MP3, WAV, FLAC)",
+    "photosLabel": "Foto Atis",
+    "photosHelp": "Telechaje 3-5 foto atis la pou referans IA",
+    "languageLabel": "Lang Chante a",
+    "languageHelp": "Chwazi lang pawòl chante ou a",
+    "projectTypeLabel": "Tip Pwojè",
+    "submit": "Jenere Videyo",
+    "uploading": "Ap telechaje..."
+  },
+  "projectType": {
+    "musicVideo": "Videyo Mizik",
+    "musicVideo.desc": "Videyo mizik sinematik konplè ak sèn ak tranzisyon",
+    "lyricVideo": "Videyo Pawòl",
+    "lyricVideo.desc": "Pawòl anime ki senkwonize ak mizik la",
+    "visualizer": "Vizualizè",
+    "visualizer.desc": "Efè vizyèl ki reyaji ak son an senkwonize ak ritm nan",
+    "albumArt": "Pochèt Albòm Anime",
+    "albumArt.desc": "Pochèt albòm anime ak mouvman soutiy",
+    "socialTeaser": "Teaser Rezo Sosyal",
+    "socialTeaser.desc": "Ti klip vètikal optimize pou rezo sosyal",
+    "spotifyCanvas": "Spotify Canvas",
+    "spotifyCanvas.desc": "Vizyèl an boukl 8 segonn pou Spotify"
+  },
+  "params": {
+    "category": {
+      "cinematography": "Sinematografi",
+      "visualStyle": "Stil Vizyèl",
+      "narrative": "Narasyon ak Dekorasyon",
+      "character": "Pèsonaj ak Pèfòmans",
+      "editing": "Montaj ak Senkwonizasyon"
+    },
+    "cameraMovement": {
+      "label": "Mouvman Kamera",
+      "options": {
+        "static": "Estatik",
+        "pan": "Panoramik",
+        "tilt": "Enklinasyon",
+        "dolly": "Travelling",
+        "crane": "Gri",
+        "handheld": "Kamera nan men",
+        "steadicam": "Steadicam",
+        "drone": "Dwòn"
+      }
+    },
+    "shotTypes": {
+      "label": "Tip Plan",
+      "options": {
+        "closeUp": "Gwo Plan",
+        "mediumShot": "Plan Mwayen",
+        "wideShot": "Plan Laj",
+        "extremeCloseUp": "Trè Gwo Plan",
+        "overTheShoulder": "Pa-dèyè Zepòl",
+        "topDown": "Vi Anwo",
+        "twoShot": "Plan De Moun",
+        "insertShot": "Plan Ensèsyon"
+      }
+    },
+    "cameraAngle": {
+      "label": "Ang Kamera",
+      "options": {
+        "eyeLevel": "Nivo Je",
+        "lowAngle": "Ang Ba",
+        "highAngle": "Ang Wo",
+        "dutch": "Ang Olondè",
+        "birdsEye": "Vi Zwazo",
+        "wormsEye": "Vi Anba"
+      }
+    },
+    "lensStyle": {
+      "label": "Stil Lanti",
+      "options": {
+        "wideAngle": "Ang Laj",
+        "telephoto": "Telefoto",
+        "macro": "Makro",
+        "fisheye": "Je Pwason",
+        "anamorphic": "Anamòfik",
+        "tiltShift": "Baskil-Desantman"
+      }
+    },
+    "focusTechnique": {
+      "label": "Teknik Fokis",
+      "options": {
+        "shallowDepth": "Ti Pwofondè Chan",
+        "deepFocus": "Fokis Pwofon",
+        "rackFocus": "Chanjman Fokis",
+        "softFocus": "Fokis Dou",
+        "splitDiopter": "Dyoptri Divize"
+      }
+    },
+    "colorPalette": {
+      "label": "Palèt Koulè",
+      "options": {
+        "warm": "Ton Cho",
+        "cool": "Ton Fre",
+        "monochrome": "Monokwòm",
+        "neon": "Neyon",
+        "pastel": "Pastèl",
+        "desaturated": "Desatire",
+        "highContrast": "Gwo Kontras",
+        "vintage": "Vintage"
+      }
+    },
+    "lightingStyle": {
+      "label": "Stil Limyè",
+      "options": {
+        "natural": "Natirèl",
+        "dramatic": "Dramatik",
+        "neonGlow": "Klète Neyon",
+        "silhouette": "Silwèt",
+        "golden": "Lè Dore",
+        "studio": "Estidyo",
+        "lowKey": "Low Key",
+        "highKey": "High Key"
+      }
+    },
+    "visualTexture": {
+      "label": "Teksti Vizyèl",
+      "options": {
+        "filmGrain": "Grenn Fim",
+        "clean": "Nimerik Pwòp",
+        "glitch": "Glitch",
+        "vhs": "Retwo VHS",
+        "painterly": "Estil Penti",
+        "halftone": "Demi-ton"
+      }
+    },
+    "artStyle": {
+      "label": "Stil Atistik",
+      "options": {
+        "photorealistic": "Fotoreyalis",
+        "anime": "Anime",
+        "comicBook": "Bann Desine",
+        "watercolor": "Akwarèl",
+        "oilPainting": "Penti Lwil",
+        "threeD": "Randi 3D",
+        "collage": "Kolaj",
+        "minimalist": "Minimalis"
+      }
+    },
+    "visualEffects": {
+      "label": "Efè Vizyèl",
+      "options": {
+        "particles": "Patikil",
+        "smoke": "Lafimen ak Bouya",
+        "fire": "Dife",
+        "water": "Dlo",
+        "lightLeaks": "Filtrasyon Limyè",
+        "bokeh": "Bokeh",
+        "holographic": "Olografik",
+        "none": "Okenn"
+      }
+    },
+    "settingLocation": {
+      "label": "Kote / Dekorasyon",
+      "options": {
+        "urban": "Vil",
+        "nature": "Lanati",
+        "studio": "Estidyo",
+        "rooftop": "Tèt Kay",
+        "beach": "Plaj",
+        "desert": "Dezè",
+        "abstract": "Espas Abstre",
+        "nightclub": "Klèb Nuit"
+      }
+    },
+    "moodAtmosphere": {
+      "label": "Moud ak Atmosfè",
+      "options": {
+        "energetic": "Enèjetik",
+        "melancholic": "Melankolik",
+        "romantic": "Womantik",
+        "dark": "Fonse ak Misteryè",
+        "dreamy": "Rèvè",
+        "empowering": "Ankourajan",
+        "nostalgic": "Nostaljik",
+        "mysterious": "Misteryè"
+      }
+    },
+    "timeOfDay": {
+      "label": "Moman nan Jounen an",
+      "options": {
+        "dawn": "Bonè Maten",
+        "morning": "Maten",
+        "afternoon": "Aprèmidi",
+        "goldenHour": "Lè Dore",
+        "dusk": "Lè Solèy Kouche",
+        "night": "Aswè",
+        "midnight": "Minui"
+      }
+    },
+    "weather": {
+      "label": "Tan",
+      "options": {
+        "clear": "Klè",
+        "rain": "Lapli",
+        "snow": "Nèj",
+        "fog": "Bouya",
+        "storm": "Tanpèt",
+        "overcast": "Siyèl Kouvri",
+        "windy": "Van"
+      }
+    },
+    "characterPresence": {
+      "label": "Prezans Pèsonaj",
+      "options": {
+        "solo": "Atis Sèl",
+        "duo": "Diwo",
+        "band": "Gwoup Konplè",
+        "crowd": "Sèn Foul",
+        "noCharacter": "San Pèsonaj",
+        "abstract": "Fig Abstre"
+      }
+    },
+    "wardrobeStyle": {
+      "label": "Stil Rad",
+      "options": {
+        "streetwear": "Rad Lari",
+        "formal": "Fòmèl",
+        "vintage": "Vintage",
+        "futuristic": "Fituris",
+        "bohemian": "Boyemyen",
+        "athletic": "Espòtif",
+        "avant-garde": "Avan-gad"
+      }
+    },
+    "performanceEnergy": {
+      "label": "Enèji Pèfòmans",
+      "options": {
+        "intimate": "Entim",
+        "controlled": "Kontwole",
+        "dynamic": "Dinamik",
+        "explosive": "Eksplozif",
+        "stoic": "Estoyik",
+        "playful": "Amizan"
+      }
+    },
+    "cutPace": {
+      "label": "Vitès Koup",
+      "options": {
+        "slow": "Lan ak Sinematik",
+        "moderate": "Modere",
+        "fast": "Koup Rapid",
+        "matchBeat": "Senkwonize ak Ritm",
+        "longTake": "Plan Long",
+        "rhythmic": "Ritmik"
+      }
+    },
+    "transitionStyle": {
+      "label": "Stil Tranzisyon",
+      "options": {
+        "cut": "Koup Sèk",
+        "dissolve": "Fonn",
+        "whipPan": "Panoramik Rapid",
+        "morphing": "Mòfin",
+        "zoomThrough": "Zoom Travèse",
+        "fade": "Fondi",
+        "glitch": "Glitch"
+      }
+    },
+    "lipSyncAmount": {
+      "label": "Kantite Senkwonizasyon Bouch",
+      "options": {
+        "full": "Senkwonizasyon Konplè",
+        "partial": "Pasyèl",
+        "none": "Okenn",
+        "chorusOnly": "Refren Sèlman",
+        "subtle": "Soutiy"
+      }
+    }
+  },
+  "processing": {
+    "title": "Ap Trete Videyo Ou",
+    "status": {
+      "uploading": "Ap telechaje fichye yo...",
+      "processingAudio": "Ap trete odyo a...",
+      "analyzingLyrics": "Ap analize pawòl yo...",
+      "generatingStoryboard": "Ap jenere storyboard la...",
+      "awaitingApproval": "Ap tann apwobasyon ou...",
+      "generatingClips": "Ap jenere klip videyo yo...",
+      "composing": "Ap konpoze videyo final la...",
+      "exporting": "Ap ekspòte...",
+      "completed": "Fini!",
+      "failed": "Tretman echwe"
+    },
+    "estimatedTime": "Tan ki rete estime",
+    "patience": "Bèl bagay pran tan. Videyo ou ap fèt ak anpil swen."
+  },
+  "storyboard": {
+    "title": "Storyboard",
+    "subtitle": "Revize epi pèsonalize sèn videyo ou yo anvan randi",
+    "shotCount": "{count} plan",
+    "approve": "Apwouve epi Randi",
+    "edit": "Modifye Plan",
+    "regenerate": "Rejenere",
+    "shotLabel": "Plan {number}",
+    "startTime": "Kòmansman",
+    "endTime": "Fen",
+    "description": "Deskripsyon",
+    "mood": "Moud"
+  },
+  "gallery": {
+    "title": "Galri Videyo",
+    "subtitle": "Videyo mizik ou yo ki te jenere",
+    "download": "Telechaje",
+    "downloadAll": "Telechaje Tout",
+    "share": "Pataje",
+    "exportTo": "Ekspòte nan {platform}",
+    "noClips": "Pa gen videyo ankò. Kreye premye videyo mizik ou!"
+  },
+  "errors": {
+    "generic": "Yon bagay mal pase. Tanpri eseye ankò.",
+    "uploadFailed": "Telechajman echwe. Tanpri verifye fichye ou yo epi eseye ankò.",
+    "fileTooLarge": "Fichye a twò gwo. Gwosè maksimòm se {maxSize}.",
+    "invalidFormat": "Fòma fichye pa bon. Fòma ki aksepte: {formats}.",
+    "networkError": "Erè rezo. Tanpri verifye koneksyon ou.",
+    "serverError": "Erè sèvè. Tanpri eseye ankò pita."
+  },
+  "footer": {
+    "tagline": "Kreyasyon videyo mizik ak IA pou tout atis",
+    "madeWith": "Fèt ak IA",
+    "copyright": "\u00a9 {year} dbest. Tout dwa rezève."
+  }
+}

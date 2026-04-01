@@ -1,0 +1,38 @@
+{
+  "errors": {
+    "unauthorized": "Ou dwe konekte pou f\u00e8 aksyon sa a.",
+    "projectNotFound": "Pwoj\u00e8 a pa jwenn.",
+    "createProjectFailed": "Pa kapab kreye pwoj\u00e8 a. Tanpri eseye ank\u00f2.",
+    "listProjectsFailed": "Pa kapab chaje pwoj\u00e8 yo. Tanpri eseye ank\u00f2.",
+    "getProjectFailed": "Pa kapab chaje detay pwoj\u00e8 a. Tanpri eseye ank\u00f2.",
+    "updateProjectFailed": "Pa kapab mete pwoj\u00e8 a ajou. Tanpri eseye ank\u00f2.",
+    "approveStoryboardFailed": "Pa kapab apwouve storyboard la. Tanpri eseye ank\u00f2.",
+    "deleteProjectFailed": "Pa kapab efase pwoj\u00e8 a. Tanpri eseye ank\u00f2.",
+    "noFileUploaded": "Pa gen fich\u00e8 ki t\u00e9l\u00e9chaje. Tanpri chwazi yon fich\u00e8.",
+    "noFilesUploaded": "Pa gen fich\u00e8 ki t\u00e9l\u00e9chaje. Tanpri chwazi omwen yon fich\u00e8.",
+    "uploadFailed": "T\u00e9l\u00e9chajman an echwe. Tanpri eseye ank\u00f2.",
+    "fileTooLarge": "Fich\u00e8 a depase gwos\u00e8 maksim\u00f2m ki otorize.",
+    "invalidFileType": "Kalite fich\u00e8 sa a pa sip\u00f2te.",
+    "internalError": "Yon er\u00e8 t\u00e8n rive. Tanpri eseye ank\u00f2 pita."
+  },
+  "status": {
+    "draft": "Bouyon",
+    "uploading": "Ap t\u00e9l\u00e9chaje fich\u00e8 yo...",
+    "processing_audio": "Ap trete odyo a...",
+    "analyzing_lyrics": "Ap analize pawol yo...",
+    "generating_storyboard": "Ap kreye storyboard la...",
+    "awaiting_approval": "Storyboard la pr\u00e8 pou ou w\u00e8",
+    "generating_clips": "Ap kreye klip vid\u00e9yo yo...",
+    "composing": "Ap monte vid\u00e9yo ou a...",
+    "exporting": "Ap ekspote vid\u00e9yo final la...",
+    "completed": "Vid\u00e9yo ou a pr\u00e8!",
+    "failed": "Gen yon bagay ki mal pase. Tanpri eseye ank\u00f2."
+  },
+  "notifications": {
+    "projectCreated": "Pwoj\u00e8 kreye avek siks\u00e8.",
+    "storyboardReady": "Storyboard ou a pr\u00e8 pou ou w\u00e8!",
+    "storyboardApproved": "Storyboard apwouve. Ap kreye klip vid\u00e9yo...",
+    "videoCompleted": "Klip mizik ou a pr\u00e8 pou t\u00e9l\u00e9chaje!",
+    "videoFailed": "Jenerasyon vid\u00e9yo a echwe. Ekip nou an enfome."
+  }
+}

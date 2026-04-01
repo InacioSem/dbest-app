@@ -1,0 +1,346 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "processing": "Procesando",
+    "storyboard": "Storyboard",
+    "gallery": "Galer\u00eda",
+    "language": "Idioma",
+    "createVideo": "Crear Video",
+    "signIn": "Iniciar sesi\u00f3n",
+    "signOut": "Cerrar sesi\u00f3n"
+  },
+  "hero": {
+    "title": "Generador de Videos Musicales con IA",
+    "subtitle": "Transforma tus canciones en impresionantes videos musicales con el poder de la inteligencia artificial",
+    "cta": "Crea tu Video",
+    "tagline": "Del sonido a la pantalla en minutos"
+  },
+  "upload": {
+    "title": "Sube tu Proyecto",
+    "subtitle": "Agrega tu canci\u00f3n y fotos del artista para comenzar",
+    "dragDrop": "Arrastra y suelta archivos aqu\u00ed",
+    "selectFiles": "Seleccionar Archivos",
+    "songLabel": "Archivo de Canci\u00f3n",
+    "songHelp": "Sube tu archivo de audio (MP3, WAV, FLAC)",
+    "photosLabel": "Fotos del Artista",
+    "photosHelp": "Sube 3-5 fotos del artista como referencia para la IA",
+    "languageLabel": "Idioma de la Canci\u00f3n",
+    "languageHelp": "Selecciona el idioma de la letra de tu canci\u00f3n",
+    "projectTypeLabel": "Tipo de Proyecto",
+    "submit": "Generar Video",
+    "uploading": "Subiendo..."
+  },
+  "projectType": {
+    "musicVideo": "Video Musical",
+    "musicVideo.desc": "Video musical cinematogr\u00e1fico completo con escenas y transiciones",
+    "lyricVideo": "Video L\u00edrico",
+    "lyricVideo.desc": "Letras animadas sincronizadas con la m\u00fasica",
+    "visualizer": "Visualizador",
+    "visualizer.desc": "Efectos visuales reactivos sincronizados al ritmo",
+    "albumArt": "Arte de \u00c1lbum Animado",
+    "albumArt.desc": "Portada de \u00e1lbum animada con movimiento sutil",
+    "socialTeaser": "Teaser para Redes",
+    "socialTeaser.desc": "Clip corto vertical optimizado para redes sociales",
+    "spotifyCanvas": "Spotify Canvas",
+    "spotifyCanvas.desc": "Visual en bucle de 8 segundos para Spotify"
+  },
+  "params": {
+    "category": {
+      "cinematography": "Cinematograf\u00eda",
+      "visualStyle": "Estilo Visual",
+      "narrative": "Narrativa y Escenario",
+      "character": "Personaje y Actuaci\u00f3n",
+      "editing": "Edici\u00f3n y Sincronizaci\u00f3n"
+    },
+    "cameraMovement": {
+      "label": "Movimiento de C\u00e1mara",
+      "options": {
+        "static": "Est\u00e1tico",
+        "pan": "Panor\u00e1mica",
+        "tilt": "Inclinaci\u00f3n",
+        "dolly": "Travelling",
+        "crane": "Gr\u00faa",
+        "handheld": "C\u00e1mara en mano",
+        "steadicam": "Steadicam",
+        "drone": "Dron"
+      }
+    },
+    "shotTypes": {
+      "label": "Tipos de Plano",
+      "options": {
+        "closeUp": "Primer Plano",
+        "mediumShot": "Plano Medio",
+        "wideShot": "Plano General",
+        "extremeCloseUp": "Primer\u00edsimo Primer Plano",
+        "overTheShoulder": "Por Encima del Hombro",
+        "topDown": "Vista Cenital",
+        "twoShot": "Plano de Dos",
+        "insertShot": "Plano Detalle"
+      }
+    },
+    "cameraAngle": {
+      "label": "\u00c1ngulo de C\u00e1mara",
+      "options": {
+        "eyeLevel": "Nivel de Ojos",
+        "lowAngle": "Contrapicado",
+        "highAngle": "Picado",
+        "dutch": "\u00c1ngulo Holand\u00e9s",
+        "birdsEye": "Vista de P\u00e1jaro",
+        "wormsEye": "Contrapicado Extremo"
+      }
+    },
+    "lensStyle": {
+      "label": "Estilo de Lente",
+      "options": {
+        "wideAngle": "Gran Angular",
+        "telephoto": "Teleobjetivo",
+        "macro": "Macro",
+        "fisheye": "Ojo de Pez",
+        "anamorphic": "Anam\u00f3rfico",
+        "tiltShift": "Tilt-Shift"
+      }
+    },
+    "focusTechnique": {
+      "label": "T\u00e9cnica de Enfoque",
+      "options": {
+        "shallowDepth": "Poca Profundidad de Campo",
+        "deepFocus": "Enfoque Profundo",
+        "rackFocus": "Cambio de Enfoque",
+        "softFocus": "Enfoque Suave",
+        "splitDiopter": "Diopter Dividido"
+      }
+    },
+    "colorPalette": {
+      "label": "Paleta de Colores",
+      "options": {
+        "warm": "Tonos C\u00e1lidos",
+        "cool": "Tonos Fr\u00edos",
+        "monochrome": "Monocromo",
+        "neon": "Ne\u00f3n",
+        "pastel": "Pastel",
+        "desaturated": "Desaturado",
+        "highContrast": "Alto Contraste",
+        "vintage": "Vintage"
+      }
+    },
+    "lightingStyle": {
+      "label": "Estilo de Iluminaci\u00f3n",
+      "options": {
+        "natural": "Natural",
+        "dramatic": "Dram\u00e1tico",
+        "neonGlow": "Resplandor Ne\u00f3n",
+        "silhouette": "Silueta",
+        "golden": "Hora Dorada",
+        "studio": "Estudio",
+        "lowKey": "Low Key",
+        "highKey": "High Key"
+      }
+    },
+    "visualTexture": {
+      "label": "Textura Visual",
+      "options": {
+        "filmGrain": "Grano de Pel\u00edcula",
+        "clean": "Digital Limpio",
+        "glitch": "Glitch",
+        "vhs": "Retro VHS",
+        "painterly": "Pict\u00f3rico",
+        "halftone": "Medio Tono"
+      }
+    },
+    "artStyle": {
+      "label": "Estilo Art\u00edstico",
+      "options": {
+        "photorealistic": "Fotorrealista",
+        "anime": "Anime",
+        "comicBook": "C\u00f3mic",
+        "watercolor": "Acuarela",
+        "oilPainting": "Pintura al \u00d3leo",
+        "threeD": "Renderizado 3D",
+        "collage": "Collage",
+        "minimalist": "Minimalista"
+      }
+    },
+    "visualEffects": {
+      "label": "Efectos Visuales",
+      "options": {
+        "particles": "Part\u00edculas",
+        "smoke": "Humo y Niebla",
+        "fire": "Fuego",
+        "water": "Agua",
+        "lightLeaks": "Fugas de Luz",
+        "bokeh": "Bokeh",
+        "holographic": "Hologr\u00e1fico",
+        "none": "Ninguno"
+      }
+    },
+    "settingLocation": {
+      "label": "Escenario / Ubicaci\u00f3n",
+      "options": {
+        "urban": "Ciudad Urbana",
+        "nature": "Naturaleza",
+        "studio": "Estudio",
+        "rooftop": "Azotea",
+        "beach": "Playa",
+        "desert": "Desierto",
+        "abstract": "Espacio Abstracto",
+        "nightclub": "Club Nocturno"
+      }
+    },
+    "moodAtmosphere": {
+      "label": "Ambiente y Atm\u00f3sfera",
+      "options": {
+        "energetic": "En\u00e9rgico",
+        "melancholic": "Melanc\u00f3lico",
+        "romantic": "Rom\u00e1ntico",
+        "dark": "Oscuro y Misterioso",
+        "dreamy": "So\u00f1ador",
+        "empowering": "Inspirador",
+        "nostalgic": "Nost\u00e1lgico",
+        "mysterious": "Misterioso"
+      }
+    },
+    "timeOfDay": {
+      "label": "Momento del D\u00eda",
+      "options": {
+        "dawn": "Amanecer",
+        "morning": "Ma\u00f1ana",
+        "afternoon": "Tarde",
+        "goldenHour": "Hora Dorada",
+        "dusk": "Atardecer",
+        "night": "Noche",
+        "midnight": "Medianoche"
+      }
+    },
+    "weather": {
+      "label": "Clima",
+      "options": {
+        "clear": "Despejado",
+        "rain": "Lluvia",
+        "snow": "Nieve",
+        "fog": "Niebla",
+        "storm": "Tormenta",
+        "overcast": "Nublado",
+        "windy": "Ventoso"
+      }
+    },
+    "characterPresence": {
+      "label": "Presencia de Personajes",
+      "options": {
+        "solo": "Artista Solo",
+        "duo": "D\u00fao",
+        "band": "Banda Completa",
+        "crowd": "Escena de Multitud",
+        "noCharacter": "Sin Personaje",
+        "abstract": "Figuras Abstractas"
+      }
+    },
+    "wardrobeStyle": {
+      "label": "Estilo de Vestuario",
+      "options": {
+        "streetwear": "Streetwear",
+        "formal": "Formal",
+        "vintage": "Vintage",
+        "futuristic": "Futurista",
+        "bohemian": "Bohemio",
+        "athletic": "Deportivo",
+        "avant-garde": "Vanguardista"
+      }
+    },
+    "performanceEnergy": {
+      "label": "Energ\u00eda de la Actuaci\u00f3n",
+      "options": {
+        "intimate": "\u00cdntimo",
+        "controlled": "Controlado",
+        "dynamic": "Din\u00e1mico",
+        "explosive": "Explosivo",
+        "stoic": "Estoico",
+        "playful": "Juguet\u00f3n"
+      }
+    },
+    "cutPace": {
+      "label": "Ritmo de Corte",
+      "options": {
+        "slow": "Lento y Cinematogr\u00e1fico",
+        "moderate": "Moderado",
+        "fast": "Cortes R\u00e1pidos",
+        "matchBeat": "Sincronizado al Ritmo",
+        "longTake": "Plano Secuencia",
+        "rhythmic": "R\u00edtmico"
+      }
+    },
+    "transitionStyle": {
+      "label": "Estilo de Transici\u00f3n",
+      "options": {
+        "cut": "Corte Directo",
+        "dissolve": "Disolvencia",
+        "whipPan": "Panor\u00e1mica R\u00e1pida",
+        "morphing": "Morphing",
+        "zoomThrough": "Zoom Atravesado",
+        "fade": "Fundido",
+        "glitch": "Glitch"
+      }
+    },
+    "lipSyncAmount": {
+      "label": "Sincronizaci\u00f3n Labial",
+      "options": {
+        "full": "Sincronizaci\u00f3n Completa",
+        "partial": "Parcial",
+        "none": "Ninguna",
+        "chorusOnly": "Solo el Coro",
+        "subtle": "Articulaci\u00f3n Sutil"
+      }
+    }
+  },
+  "processing": {
+    "title": "Procesando tu Video",
+    "status": {
+      "uploading": "Subiendo archivos...",
+      "processingAudio": "Procesando audio...",
+      "analyzingLyrics": "Analizando la letra...",
+      "generatingStoryboard": "Generando storyboard...",
+      "awaitingApproval": "Esperando tu aprobaci\u00f3n...",
+      "generatingClips": "Generando clips de video...",
+      "composing": "Componiendo el video final...",
+      "exporting": "Exportando...",
+      "completed": "\u00a1Completado!",
+      "failed": "El procesamiento fall\u00f3"
+    },
+    "estimatedTime": "Tiempo restante estimado",
+    "patience": "Las grandes cosas toman tiempo. Tu video se est\u00e1 creando con cuidado."
+  },
+  "storyboard": {
+    "title": "Storyboard",
+    "subtitle": "Revisa y personaliza las escenas de tu video antes del renderizado",
+    "shotCount": "{count} planos",
+    "approve": "Aprobar y Renderizar",
+    "edit": "Editar Plano",
+    "regenerate": "Regenerar",
+    "shotLabel": "Plano {number}",
+    "startTime": "Inicio",
+    "endTime": "Fin",
+    "description": "Descripci\u00f3n",
+    "mood": "Ambiente"
+  },
+  "gallery": {
+    "title": "Galer\u00eda de Videos",
+    "subtitle": "Tus videos musicales generados",
+    "download": "Descargar",
+    "downloadAll": "Descargar Todo",
+    "share": "Compartir",
+    "exportTo": "Exportar a {platform}",
+    "noClips": "\u00a1A\u00fan no hay videos. Crea tu primer video musical!"
+  },
+  "errors": {
+    "generic": "Algo sali\u00f3 mal. Por favor, int\u00e9ntalo de nuevo.",
+    "uploadFailed": "Error al subir. Verifica tus archivos e int\u00e9ntalo de nuevo.",
+    "fileTooLarge": "El archivo es demasiado grande. Tama\u00f1o m\u00e1ximo: {maxSize}.",
+    "invalidFormat": "Formato de archivo no v\u00e1lido. Formatos aceptados: {formats}.",
+    "networkError": "Error de red. Verifica tu conexi\u00f3n.",
+    "serverError": "Error del servidor. Int\u00e9ntalo m\u00e1s tarde."
+  },
+  "footer": {
+    "tagline": "Creaci\u00f3n de videos musicales con IA para artistas de todo el mundo",
+    "madeWith": "Hecho con IA",
+    "copyright": "\u00a9 {year} dbest. Todos los derechos reservados."
+  }
+}

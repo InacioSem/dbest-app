@@ -1,0 +1,38 @@
+{
+  "errors": {
+    "unauthorized": "Vous devez vous connecter pour effectuer cette action.",
+    "projectNotFound": "Projet introuvable.",
+    "createProjectFailed": "Impossible de cr\u00e9er le projet. Veuillez r\u00e9essayer.",
+    "listProjectsFailed": "Impossible de charger les projets. Veuillez r\u00e9essayer.",
+    "getProjectFailed": "Impossible de charger les d\u00e9tails du projet. Veuillez r\u00e9essayer.",
+    "updateProjectFailed": "Impossible de mettre \u00e0 jour le projet. Veuillez r\u00e9essayer.",
+    "approveStoryboardFailed": "Impossible d\u2019approuver le storyboard. Veuillez r\u00e9essayer.",
+    "deleteProjectFailed": "Impossible de supprimer le projet. Veuillez r\u00e9essayer.",
+    "noFileUploaded": "Aucun fichier n\u2019a \u00e9t\u00e9 t\u00e9l\u00e9vers\u00e9. Veuillez s\u00e9lectionner un fichier.",
+    "noFilesUploaded": "Aucun fichier n\u2019a \u00e9t\u00e9 t\u00e9l\u00e9vers\u00e9. Veuillez s\u00e9lectionner au moins un fichier.",
+    "uploadFailed": "Le t\u00e9l\u00e9versement a \u00e9chou\u00e9. Veuillez r\u00e9essayer.",
+    "fileTooLarge": "Le fichier d\u00e9passe la taille maximale autoris\u00e9e.",
+    "invalidFileType": "Ce type de fichier n\u2019est pas pris en charge.",
+    "internalError": "Une erreur interne s\u2019est produite. Veuillez r\u00e9essayer plus tard."
+  },
+  "status": {
+    "draft": "Brouillon",
+    "uploading": "T\u00e9l\u00e9versement des fichiers...",
+    "processing_audio": "Traitement de l\u2019audio...",
+    "analyzing_lyrics": "Analyse des paroles...",
+    "generating_storyboard": "G\u00e9n\u00e9ration du storyboard...",
+    "awaiting_approval": "Storyboard pr\u00eat pour r\u00e9vision",
+    "generating_clips": "G\u00e9n\u00e9ration des clips vid\u00e9o...",
+    "composing": "Assemblage de votre vid\u00e9o...",
+    "exporting": "Exportation de la vid\u00e9o finale...",
+    "completed": "Votre vid\u00e9o est pr\u00eate\u00a0!",
+    "failed": "Quelque chose s\u2019est mal pass\u00e9. Veuillez r\u00e9essayer."
+  },
+  "notifications": {
+    "projectCreated": "Projet cr\u00e9\u00e9 avec succ\u00e8s.",
+    "storyboardReady": "Votre storyboard est pr\u00eat pour r\u00e9vision\u00a0!",
+    "storyboardApproved": "Storyboard approuv\u00e9. G\u00e9n\u00e9ration des clips en cours...",
+    "videoCompleted": "Votre clip musical est pr\u00eat \u00e0 t\u00e9l\u00e9charger\u00a0!",
+    "videoFailed": "\u00c9chec de la g\u00e9n\u00e9ration vid\u00e9o. Notre \u00e9quipe a \u00e9t\u00e9 inform\u00e9e."
+  }
+}

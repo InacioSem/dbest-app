@@ -1,0 +1,38 @@
+{
+  "errors": {
+    "unauthorized": "Debes iniciar sesi\u00f3n para realizar esta acci\u00f3n.",
+    "projectNotFound": "Proyecto no encontrado.",
+    "createProjectFailed": "No se pudo crear el proyecto. Por favor, int\u00e9ntalo de nuevo.",
+    "listProjectsFailed": "No se pudieron cargar los proyectos. Por favor, int\u00e9ntalo de nuevo.",
+    "getProjectFailed": "No se pudieron cargar los detalles del proyecto. Por favor, int\u00e9ntalo de nuevo.",
+    "updateProjectFailed": "No se pudo actualizar el proyecto. Por favor, int\u00e9ntalo de nuevo.",
+    "approveStoryboardFailed": "No se pudo aprobar el storyboard. Por favor, int\u00e9ntalo de nuevo.",
+    "deleteProjectFailed": "No se pudo eliminar el proyecto. Por favor, int\u00e9ntalo de nuevo.",
+    "noFileUploaded": "No se subi\u00f3 ning\u00fan archivo. Por favor, selecciona un archivo.",
+    "noFilesUploaded": "No se subieron archivos. Por favor, selecciona al menos un archivo.",
+    "uploadFailed": "La subida del archivo fall\u00f3. Por favor, int\u00e9ntalo de nuevo.",
+    "fileTooLarge": "El archivo excede el tama\u00f1o m\u00e1ximo permitido.",
+    "invalidFileType": "Este tipo de archivo no es compatible.",
+    "internalError": "Ocurri\u00f3 un error interno. Por favor, int\u00e9ntalo m\u00e1s tarde."
+  },
+  "status": {
+    "draft": "Borrador",
+    "uploading": "Subiendo archivos...",
+    "processing_audio": "Procesando audio...",
+    "analyzing_lyrics": "Analizando letras...",
+    "generating_storyboard": "Generando storyboard...",
+    "awaiting_approval": "Storyboard listo para revisi\u00f3n",
+    "generating_clips": "Generando clips de video...",
+    "composing": "Ensamblando tu video...",
+    "exporting": "Exportando video final...",
+    "completed": "\u00a1Tu video est\u00e1 listo!",
+    "failed": "Algo sali\u00f3 mal. Por favor, int\u00e9ntalo de nuevo."
+  },
+  "notifications": {
+    "projectCreated": "Proyecto creado exitosamente.",
+    "storyboardReady": "\u00a1Tu storyboard est\u00e1 listo para revisi\u00f3n!",
+    "storyboardApproved": "Storyboard aprobado. Generando clips de video...",
+    "videoCompleted": "\u00a1Tu video musical est\u00e1 listo para descargar!",
+    "videoFailed": "La generaci\u00f3n del video fall\u00f3. Nuestro equipo ha sido notificado."
+  }
+}

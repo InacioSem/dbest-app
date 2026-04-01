@@ -1,0 +1,38 @@
+{
+  "errors": {
+    "unauthorized": "You must be logged in to perform this action.",
+    "projectNotFound": "Project not found.",
+    "createProjectFailed": "Failed to create project. Please try again.",
+    "listProjectsFailed": "Failed to load projects. Please try again.",
+    "getProjectFailed": "Failed to load project details. Please try again.",
+    "updateProjectFailed": "Failed to update project. Please try again.",
+    "approveStoryboardFailed": "Failed to approve storyboard. Please try again.",
+    "deleteProjectFailed": "Failed to delete project. Please try again.",
+    "noFileUploaded": "No file was uploaded. Please select a file.",
+    "noFilesUploaded": "No files were uploaded. Please select at least one file.",
+    "uploadFailed": "File upload failed. Please try again.",
+    "fileTooLarge": "The file exceeds the maximum allowed size.",
+    "invalidFileType": "This file type is not supported.",
+    "internalError": "An internal error occurred. Please try again later."
+  },
+  "status": {
+    "draft": "Draft",
+    "uploading": "Uploading files...",
+    "processing_audio": "Processing audio...",
+    "analyzing_lyrics": "Analyzing lyrics...",
+    "generating_storyboard": "Generating storyboard...",
+    "awaiting_approval": "Storyboard ready for review",
+    "generating_clips": "Generating video clips...",
+    "composing": "Assembling your video...",
+    "exporting": "Exporting final video...",
+    "completed": "Your video is ready!",
+    "failed": "Something went wrong. Please try again."
+  },
+  "notifications": {
+    "projectCreated": "Project created successfully.",
+    "storyboardReady": "Your storyboard is ready for review!",
+    "storyboardApproved": "Storyboard approved. Generating video clips...",
+    "videoCompleted": "Your music video is ready to download!",
+    "videoFailed": "Video generation failed. Our team has been notified."
+  }
+}
