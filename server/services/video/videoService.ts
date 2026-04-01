@@ -17,10 +17,15 @@ import type {
   ArtistProfile,
 } from '../../../shared/types/index';
 
-// Configure FAL client
-fal.config({ credentials: process.env.FAL_API_KEY });
-
 const isDemoMode = () => process.env.USE_DEMO_MODE === 'true';
+
+let falConfigured = false;
+function ensureFalConfigured() {
+  if (!falConfigured) {
+    fal.config({ credentials: process.env.FAL_API_KEY });
+    falConfigured = true;
+  }
+}
 
 // ============================================================
 // Generate all clips for a storyboard
@@ -114,6 +119,7 @@ async function generateLipSyncClip(
   songUrl: string,
   audioSegmentsDir?: string,
 ): Promise<GeneratedClip> {
+  ensureFalConfigured();
   const imageUrl = artistProfile.photoUrls[0];
   if (!imageUrl) {
     throw new Error('No artist photo available for lip-sync generation');
@@ -148,10 +154,6 @@ async function generateLipSyncClip(
     input: {
       image_url: resolvedImage,
       audio_url: audioSource,
-      num_inference_steps: 20,
-      fps: 24,
-      resolution: 768,
-      seed: shot.index, // Consistent seed per shot for reproducibility
     },
     logs: true,
     onQueueUpdate: (update) => {
@@ -194,30 +196,33 @@ async function generateVideoClip(
   shot: StoryboardShot,
   artistProfile: ArtistProfile,
 ): Promise<GeneratedClip> {
-  // Use artist photo as reference for shots that include the artist,
-  // skip reference for pure environment/object shots
-  const includesArtist = shot.shotType !== 'transition' &&
-    !shot.sceneDescription.toLowerCase().includes('rain drops hitting') &&
-    !shot.sceneDescription.toLowerCase().includes('close-up of locked') &&
-    !shot.sceneDescription.toLowerCase().includes('close-up details of locked');
-
-  const imageUrl = includesArtist ? artistProfile.photoUrls[0] : undefined;
-  const resolvedImage = imageUrl ? await resolveFileUrl(imageUrl) : undefined;
+  ensureFalConfigured();
+  // KLING image-to-video always requires start_image_url.
+  // Use artist photo as the reference image for all shots.
+  const imageUrl = artistProfile.photoUrls[0];
+  if (!imageUrl) {
+    throw new Error('No artist photo available for KLING generation');
+  }
+  const resolvedImage = await resolveFileUrl(imageUrl);
 
   const duration = Math.min(Math.round(shot.timestampEnd - shot.timestampStart), 10);
   const durationOption = duration <= 5 ? '5' : '10';
 
   logger.info(`  KLING v3 Pro: prompt="${shot.generationPrompt.substring(0, 60)}...", duration=${durationOption}s`);
 
+  // Strip @image references from prompt — those are for Seedance, not KLING.
+  // KLING uses start_image_url for character reference instead.
+  const cleanPrompt = shot.generationPrompt
+    .replace(/@image\d+\s*/g, '')
+    .replace(/^\.\s*/, '')
+    .trim();
+
   const input: Record<string, unknown> = {
-    prompt: shot.generationPrompt,
+    prompt: cleanPrompt,
+    start_image_url: resolvedImage,
     duration: durationOption,
     aspect_ratio: '16:9',
   };
-
-  if (resolvedImage) {
-    input.image_url = resolvedImage;
-  }
 
   const result = await fal.subscribe('fal-ai/kling-video/v3/pro/image-to-video', {
     input,
@@ -254,6 +259,7 @@ async function generateVideoClip(
 // ============================================================
 
 async function uploadToFal(localPath: string): Promise<string> {
+  ensureFalConfigured();
   const fileBuffer = fs.readFileSync(localPath);
   const fileName = path.basename(localPath);
   const file = new File([fileBuffer], fileName, {
