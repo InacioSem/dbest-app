@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import StoryboardTimeline from '@/client/components/StoryboardTimeline';
+import StoryboardTimeline from '@/components/StoryboardTimeline';
 import type { StoryboardShot } from '@shared/types';
 import { useState } from 'react';
 

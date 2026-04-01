@@ -1,8 +1,8 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Space_Grotesk, DM_Sans } from 'next/font/google';
-import Header from '@/client/components/Header';
-import Footer from '@/client/components/Footer';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],

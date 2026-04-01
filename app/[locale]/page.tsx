@@ -2,9 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import UploadZone from '@/client/components/UploadZone';
-import ProjectTypeSelector from '@/client/components/ProjectTypeSelector';
-import CreativeParams from '@/client/components/CreativeParams';
+import UploadZone from '@/components/UploadZone';
+import ProjectTypeSelector from '@/components/ProjectTypeSelector';
+import CreativeParams from '@/components/CreativeParams';
 import type { ProjectType, Locale, CreativeParameters } from '@shared/types';
 import { useState } from 'react';
 

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { useJobStatus } from '@/client/hooks/useJobStatus';
+import { useJobStatus } from '@/hooks/useJobStatus';
 
 const PIPELINE_STEPS = [
   { key: 'processingAudio', icon: '🎵' },
