@@ -12,6 +12,7 @@ import OpenAI from 'openai';
 import { v4 as uuid } from 'uuid';
 import { logger } from '../../middleware/logger.js';
 import { demoAudioAnalysis } from './demoData.js';
+import { correctKreyolTranscription } from './transcriptionCorrector';
 import type {
   AudioAnalysis,
   SongLanguage,
@@ -28,7 +29,8 @@ const isDemoMode = () => process.env.USE_DEMO_MODE === 'true';
 
 export async function analyzeAudio(
   songPath: string,
-  languageOverride?: SongLanguage
+  languageOverride?: SongLanguage,
+  songTitle?: string,
 ): Promise<AudioAnalysis> {
   if (isDemoMode()) {
     logger.info('[DEMO] Returning mock audio analysis');
@@ -41,7 +43,14 @@ export async function analyzeAudio(
   const compressedPath = await compressForWhisper(songPath);
 
   // Step 1b: Transcribe with Whisper
-  const transcription = await transcribeWithWhisper(compressedPath, languageOverride);
+  let transcription = await transcribeWithWhisper(compressedPath, languageOverride);
+
+  // Step 1b.5: Correct Kreyòl transcription via Claude
+  // Whisper has no Kreyòl model — it returns French phonetics with accurate timestamps.
+  // Claude re-interprets the French-phonetic text into correct Kreyòl Ayisyen.
+  if (transcription.language === 'ht' && process.env.ANTHROPIC_API_KEY) {
+    transcription = await correctKreyolTranscription(transcription, songTitle);
+  }
 
   // Step 1c: Detect BPM and duration
   const { bpm, durationSeconds } = await detectBpmAndDuration(songPath);
@@ -83,7 +92,7 @@ export async function compressForWhisper(inputPath: string): Promise<string> {
     ffmpeg(inputPath)
       .audioChannels(1)       // Mono — Whisper converts internally anyway
       .audioFrequency(16000)  // 16kHz — Whisper's internal sample rate
-      .audioBitrate('48k')    // 48kbps — small file, no quality loss for transcription
+      .audioBitrate('128k')   // 128kbps — preserves vocal clarity for transcription
       .format('mp3')
       .on('end', async () => {
         const stats = await fs.stat(outputPath);
@@ -109,13 +118,24 @@ async function transcribeWithWhisper(
 ): Promise<TranscriptionResult> {
   logger.info(`Transcribing with Whisper (language: ${languageOverride || 'auto-detect'})`);
 
+  // Whisper API does not support 'ht' (Haitian Creole) as a language code.
+  // Map 'ht' → 'fr' for the API call — French is the closest supported hint
+  // and produces far better Kreyòl results than auto-detect (which defaults to English).
+  // We track the original request so we can map back to 'ht' in our system.
+  const requestedKreyol = languageOverride === 'ht';
+  const whisperLanguage = requestedKreyol ? 'fr' : languageOverride;
+
+  if (requestedKreyol) {
+    logger.info(`  Kreyòl requested → sending 'fr' to Whisper (best available hint)`);
+  }
+
   const fileStream = await fs.readFile(audioPath);
   const file = new File([fileStream], path.basename(audioPath), { type: 'audio/mpeg' });
 
   const response = await openai.audio.transcriptions.create({
     file,
     model: 'whisper-1',
-    ...(languageOverride ? { language: languageOverride } : {}),
+    ...(whisperLanguage ? { language: whisperLanguage } : {}),
     response_format: 'verbose_json',
     timestamp_granularities: ['segment'],
   });
@@ -126,24 +146,25 @@ async function transcribeWithWhisper(
     text: seg.text.trim(),
   })) || [];
 
-  const detectedLanguage = (response as any).language || languageOverride || 'en';
+  // Determine the final language for our system.
+  // If the user explicitly requested 'ht', honor that regardless of what Whisper reports.
+  // Otherwise map Whisper's detected language to our SongLanguage type.
+  let normalizedLanguage: SongLanguage;
 
-  // Map Whisper language codes to our SongLanguage type
-  const languageMap: Record<string, SongLanguage> = {
-    'haitian creole': 'ht',
-    'haitian': 'ht',
-    'ht': 'ht',
-    'french': 'fr',
-    'fr': 'fr',
-    'english': 'en',
-    'en': 'en',
-    'spanish': 'es',
-    'es': 'es',
-  };
+  if (requestedKreyol) {
+    normalizedLanguage = 'ht';
+  } else {
+    const detectedLanguage = (response as any).language || languageOverride || 'en';
+    const languageMap: Record<string, SongLanguage> = {
+      'haitian creole': 'ht', 'haitian': 'ht', 'ht': 'ht',
+      'french': 'fr', 'fr': 'fr',
+      'english': 'en', 'en': 'en',
+      'spanish': 'es', 'es': 'es',
+    };
+    normalizedLanguage = languageMap[detectedLanguage.toLowerCase()] || 'en';
+  }
 
-  const normalizedLanguage = languageMap[detectedLanguage.toLowerCase()] || 'en';
-
-  logger.info(`Transcribed: ${segments.length} segments, detected language: ${normalizedLanguage}`);
+  logger.info(`Transcribed: ${segments.length} segments, language: ${normalizedLanguage}`);
 
   return {
     text: response.text,
