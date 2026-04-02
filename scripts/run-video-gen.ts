@@ -66,7 +66,11 @@ async function main() {
     id: 'artist_magdaline',
     userId: 'user_1',
     name: 'Magdaline',
-    photoUrls: ['/Users/albertsemerville/Desktop/Magdaline/magdaline-mytil-m-te-renmen-w-2026.png'],
+    photoUrls: [
+      '/Users/albertsemerville/Desktop/Magdaline/magdaline-mytil-m-te-renmen-w-2026.png', // Cover art
+      '/Users/albertsemerville/Desktop/Magdaline/MAG1.jpg',  // Dramatic — black dress, red lighting
+      '/Users/albertsemerville/Desktop/Magdaline/MAG2.jpg',  // Warm — leopard dress, white hat, elegant
+    ],
     description: 'Haitian R&B artist',
     genreTags: ['R&B', 'Kompa', 'Kreyòl'],
     createdAt: new Date(),

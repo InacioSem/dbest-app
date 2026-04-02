@@ -105,6 +105,52 @@ async function generateSingleClip(
 }
 
 // ============================================================
+// Photo selection — pick the best reference image per shot
+//
+// When multiple photos are available, use scene context to choose:
+//   - Flashback / warm / golden scenes → use a warmer, softer photo
+//   - Present-day / dramatic / performance → use the dramatic photo
+//   - Default → first photo
+// ============================================================
+
+function selectPhotoForShot(shot: StoryboardShot, photoUrls: string[]): string {
+  if (photoUrls.length <= 1) return photoUrls[0];
+
+  const desc = (shot.sceneDescription + ' ' + (shot.lightingDescription || '')).toLowerCase();
+  const mood = (shot.moodKeywords || []).join(' ').toLowerCase();
+  const combined = desc + ' ' + mood;
+
+  // Flashback / memory / golden / warm / nostalgic → use last photo (typically the softer look)
+  const isFlashback = combined.includes('flashback') ||
+    combined.includes('memory') ||
+    combined.includes('golden') ||
+    combined.includes('overexposed') ||
+    combined.includes('nostalgic') ||
+    combined.includes('warm') ||
+    combined.includes('dreamy');
+
+  if (isFlashback && photoUrls.length >= 3) {
+    return photoUrls[2]; // MAG2 — warm, elegant look
+  }
+
+  // Dramatic / performance / rain / dark → use second photo (dramatic look)
+  const isDramatic = combined.includes('dramatic') ||
+    combined.includes('rain') ||
+    combined.includes('storm') ||
+    combined.includes('dark') ||
+    combined.includes('red') ||
+    combined.includes('powerful') ||
+    combined.includes('intense');
+
+  if (isDramatic && photoUrls.length >= 2) {
+    return photoUrls[1]; // MAG1 — dramatic, red-lit
+  }
+
+  // Default: first photo
+  return photoUrls[0];
+}
+
+// ============================================================
 // OmniHuman v1.5 — Lip-sync performance shots (via FAL.AI)
 //
 // Model: fal-ai/bytedance/omnihuman/v1.5
@@ -120,7 +166,7 @@ async function generateLipSyncClip(
   audioSegmentsDir?: string,
 ): Promise<GeneratedClip> {
   ensureFalConfigured();
-  const imageUrl = artistProfile.photoUrls[0];
+  const imageUrl = selectPhotoForShot(shot, artistProfile.photoUrls);
   if (!imageUrl) {
     throw new Error('No artist photo available for lip-sync generation');
   }
@@ -198,11 +244,12 @@ async function generateVideoClip(
 ): Promise<GeneratedClip> {
   ensureFalConfigured();
   // KLING image-to-video always requires start_image_url.
-  // Use artist photo as the reference image for all shots.
-  const imageUrl = artistProfile.photoUrls[0];
+  // Select the best photo based on shot context.
+  const imageUrl = selectPhotoForShot(shot, artistProfile.photoUrls);
   if (!imageUrl) {
     throw new Error('No artist photo available for KLING generation');
   }
+  logger.info(`  Photo selected: ${path.basename(imageUrl)}`);
   const resolvedImage = await resolveFileUrl(imageUrl);
 
   const duration = Math.min(Math.round(shot.timestampEnd - shot.timestampStart), 10);
